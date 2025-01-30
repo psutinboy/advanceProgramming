@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class VowelChecker {
@@ -7,24 +6,21 @@ public class VowelChecker {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter a character to check if it's a vowel: ");
+
+        if (!scanner.hasNext("[A-Za-z]")) {
+            System.out.println("Error: Please enter a valid letter.");
+            scanner.close();
+            return;
+        }
+
         char ch = scanner.next().toLowerCase().charAt(0);
 
         boolean isVowel = false;
 
-        // Using switch statement to check for vowels
         switch (ch) {
-            case 'a':
-            case 'e':
-            case 'i':
-            case 'o':
-            case 'u':
-                isVowel = true;
-                break;
-            default:
-                isVowel = false;
+            case 'a', 'e', 'i', 'o', 'u' -> isVowel = true;
         }
 
-        // Display result
         if (isVowel) {
             System.out.println(ch + " is a vowel");
         } else {
