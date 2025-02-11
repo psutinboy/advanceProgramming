@@ -1,8 +1,13 @@
+
+import java.util.Scanner;
+
 interface Searchable {
+
     boolean search(String keyword);
 }
 
 class Document implements Searchable {
+
     private final String content;
 
     public Document(String content) {
@@ -19,6 +24,7 @@ class Document implements Searchable {
 }
 
 class WebPage implements Searchable {
+
     private final String url;
     private final String pageContent;
 
@@ -33,33 +39,54 @@ class WebPage implements Searchable {
             return false;
         }
         // Search in both URL and page content
-        return url.toLowerCase().contains(keyword.toLowerCase()) ||
-               pageContent.toLowerCase().contains(keyword.toLowerCase());
+        return url.toLowerCase().contains(keyword.toLowerCase())
+                || pageContent.toLowerCase().contains(keyword.toLowerCase());
     }
 }
 
 public class SearchDemo {
-    public static void main(String[] args) {
-        // Create a document instance
-        Document doc = new Document("This is a sample document containing some text about Java programming.");
-        
-        // Create a webpage instance
-        WebPage webpage = new WebPage(
-            "https://www.example.com/java-tutorial",
-            "Welcome to the Java Programming Tutorial page. Learn Java here!"
-        );
 
-        // Test searching in document
-        String keyword1 = "Java";
-        System.out.println("Searching for '" + keyword1 + "' in document: " + doc.search(keyword1));
-        
-        // Test searching in webpage
-        String keyword2 = "tutorial";
-        System.out.println("Searching for '" + keyword2 + "' in webpage: " + webpage.search(keyword2));
-        
-        // Test searching with a keyword that doesn't exist
-        String keyword3 = "python";
-        System.out.println("Searching for '" + keyword3 + "' in document: " + doc.search(keyword3));
-        System.out.println("Searching for '" + keyword3 + "' in webpage: " + webpage.search(keyword3));
+    public static void main(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            // Get document content from user
+            System.out.println("Enter the content for the document:");
+            String docContent = scanner.nextLine();
+            Document doc = new Document(docContent);
+
+            // Get webpage details from user
+            System.out.println("\nEnter the URL for the webpage:");
+            String url = scanner.nextLine();
+            System.out.println("Enter the content for the webpage:");
+            String webContent = scanner.nextLine();
+            WebPage webpage = new WebPage(url, webContent);
+
+            while (true) {
+                System.out.println("\nWhat would you like to search?");
+                System.out.println("1. Search in Document");
+                System.out.println("2. Search in Webpage");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice (1-3): ");
+
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+
+                if (choice == 3) {
+                    System.out.println("Goodbye!");
+                    break;
+                }
+
+                System.out.print("Enter the keyword to search: ");
+                String keyword = scanner.nextLine();
+
+                switch (choice) {
+                    case 1 ->
+                        System.out.println("Searching for '" + keyword + "' in document: " + doc.search(keyword));
+                    case 2 ->
+                        System.out.println("Searching for '" + keyword + "' in webpage: " + webpage.search(keyword));
+                    default ->
+                        System.out.println("Invalid choice! Please try again.");
+                }
+            }
+        }
     }
-} 
+}
