@@ -7,9 +7,7 @@ class Balance {
     bal = b;
   }
   void show() {
-    if (bal < 0) {
-      System.out.println(name + ": $" + bal);
-    }
+    System.out.println(name + ": $" + bal);
   }
 }
   
