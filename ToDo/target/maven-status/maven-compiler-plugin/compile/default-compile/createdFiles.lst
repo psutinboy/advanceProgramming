@@ -1,0 +1,4 @@
+jdbc\JDBCAssignment.class
+jdbc\DatabaseManager.class
+jdbc\TaskDao.class
+jdbc\Task.class
